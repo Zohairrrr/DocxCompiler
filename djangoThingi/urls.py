@@ -5,6 +5,5 @@ from django.urls import path,include
 urlpatterns = [
     path("polls/", include("polls.urls")),
     path("admin/", admin.site.urls),
-    path("",include('GitFetch.urls')),
-    path('math-compiler/', include('DocxCompiler.urls')),
+    path("",include('DocxCompiler.urls')),
 ]
