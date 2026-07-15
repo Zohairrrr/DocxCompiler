@@ -6,4 +6,5 @@ urlpatterns = [
     path("polls/", include("polls.urls")),
     path("admin/", admin.site.urls),
     path("",include('DocxCompiler.urls')),
+    path('gitfetch/', include('GitFetch.urls')),
 ]
