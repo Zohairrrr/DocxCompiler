@@ -73,6 +73,7 @@ class AIWordEngine:
                 }
             ],
             temperature= 0.3
+            max_tokens=8000
         )
         raw_ai_text = response.choices[0].message.content
         media_root = os.path.join(settings.BASE_DIR, 'media')
