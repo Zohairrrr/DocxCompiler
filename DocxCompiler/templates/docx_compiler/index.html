@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI LaTeX to Native DOCX Compiler</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #121214; color: #e1e1e6; padding: 40px; margin: 0; }
+        .container { max-width: 800px; margin: 0 auto; background: #202024; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        h1 { color: #04d361; margin-top: 0; }
+        p { color: #a8a8b3; line-height: 1.6; }
+        textarea { width: 100%; height: 250px; background: #121214; border: 1px solid #29292e; border-radius: 4px; color: #fff; padding: 15px; font-size: 16px; box-sizing: border-radius; resize: vertical; margin-bottom: 20px; box-sizing: border-box; }
+        textarea:focus { border-color: #04d361; outline: none; }
+        button { background: #04d361; color: #000; border: none; padding: 12px 24px; font-size: 16px; font-weight: bold; border-radius: 4px; cursor: pointer; transition: background 0.2s; }
+        button:hover { background: #00b34d; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AI LaTeX to Native Word Compiler</h1>
+        <p>Type out your massive math prompt below. The backend engine will pass it to the AI, parse all markdown text, translate LaTeX math expressions into native MS Word OMML structures, and return a completely editable document file.</p>
+        
+        <form method="POST">
+            {% csrf_token %}
+            <textarea name="prompt" placeholder="Example: Derive the complete proof for Green's Theorem step-by-step. Break down the double integrals over plane region R and the line integrals along its boundary curve C orienting counterclockwise..."></textarea>
+            <br>
+            <button type="submit">Compile Document Layer</button>
+        </form>
+    </div>
+</body>
+</html>

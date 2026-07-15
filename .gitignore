@@ -1,0 +1,23 @@
+# Python virtual environments
+.venv/
+venv/
+ENV/
+
+# Python caching (temporary compilation files)
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Local Database (NEVER push your active database file!)
+db.sqlite3
+
+# Django Media & Uploads (prevents saving generated .docx files to Git)
+media/
+
+# Environment secrets file
+.env
+
+# OS-specific clutter
+.DS_Store
+Thumbs.db

@@ -1,0 +1,196 @@
+/* ==========================================================================
+   DESIGN TOKENS & SYSTEM VARIABLES
+   ========================================================================== */
+:root {
+    --bg-main: #0f172a;
+    --bg-surface: #1e293b;
+    --bg-inset: #090d16;
+    
+    --color-primary: #38bdf8;
+    --color-primary-hover: #0ea5e9;
+    --color-text-main: #e2e8f0;
+    --color-text-muted: #64748b;
+    --color-text-bright: #cbd5e1;
+    --color-accent: #f43f5e;
+    
+    --border-color: #334155;
+    --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* ==========================================================================
+   RESET & BASE STYLES
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-stack);
+    background-color: var(--bg-main);
+    color: var(--color-text-main);
+    line-height: 1.5;
+    padding: 40px 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* ==========================================================================
+   COMPONENTS
+   ========================================================================== */
+
+/* Typography & Navigation */
+h1 {
+    color: var(--color-primary);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+}
+
+.back-btn {
+    display: inline-block;
+    color: var(--color-primary);
+    text-decoration: none;
+    margin-bottom: 20px;
+    font-size: 14px;
+    transition: color 0.2s ease;
+
+    &:hover {
+        color: var(--color-primary-hover);
+        text-decoration: underline;
+    }
+}
+
+.meta {
+    color: var(--color-text-muted);
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+/* Repository Dashboard Cards */
+.repo-card {
+    background: var(--bg-surface);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border: 1px solid var(--border-color);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+        border-color: var(--color-primary);
+    }
+
+    .repo-link {
+        color: var(--color-primary);
+        font-size: 20px;
+        font-weight: bold;
+        text-decoration: none;
+        display: inline-block;
+        margin-bottom: 8px;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    p {
+        margin-bottom: 12px;
+        color: var(--color-text-bright);
+    }
+
+    .timestamp {
+        color: var(--color-text-muted);
+        font-size: 12px;
+        display: block;
+    }
+}
+
+/* Timeline Layout */
+.timeline {
+    border-left: 2px solid var(--border-color);
+    padding-left: 20px;
+    margin-left: 10px;
+}
+
+.commit-node {
+    position: relative;
+    margin-bottom: 30px;
+
+    &::before {
+        content: "";
+        position: absolute;
+        left: -27px;
+        top: 6px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--color-primary);
+        border: 2px solid var(--bg-main);
+    }
+}
+
+.commit-box {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    border-radius: 8px;
+
+    .commit-hash {
+        font-family: monospace;
+        background: var(--bg-inset);
+        padding: 2px 6px;
+        border-radius: 4px;
+        color: var(--color-accent);
+        font-size: 13px;
+    }
+
+    .commit-message {
+        font-size: 16px;
+        font-weight: 600;
+        margin: 8px 0;
+        color: var(--color-text-main);
+    }
+
+    .commit-meta {
+        color: var(--color-text-muted);
+        font-size: 12px;
+        margin-top: 10px;
+
+        strong {
+            color: var(--color-text-bright);
+        }
+    }
+}
+
+/* File System Changes Box */
+.files-box {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-color);
+    font-size: 13px;
+    color: var(--color-text-muted);
+
+    strong {
+        color: var(--color-text-bright);
+    }
+
+    code {
+        font-family: monospace;
+        background: var(--bg-inset);
+        padding: 2px 4px;
+        border-radius: 4px;
+        color: var(--color-text-bright);
+    }
+}
+
+/* Empty States */
+.empty-state {
+    text-align: center;
+    padding: 40px;
+    color: var(--color-text-muted);
+}

@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitFetch</title>
+    <link rel="stylesheet" href="{% static 'gitfetch/css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>GitFetch</h1>
+        {% for repo in repositories %}
+        <div class="repo-card">
+            <a href="{% url 'repo_detail' repo.id %}" class="repo-link">
+                {{ repo.name }}
+            </a>
+            <span class="timestamp">
+                Registered on: {{ repo.created_at|date:"F j, Y, g:i a" }}
+            </span>
+        </div>
+        {% empty %}
+            <p>No repositories tracked yet.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ repo.name }} - Commit Timeline</title>
+    <link rel="stylesheet" href="{% static 'gitfetch/css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <a href="{% url 'repo_list' %}" class="back-btn">⬅ Back to Dashboard</a>
+        <h1>Repository: {{ repo.name }}</h1>
+        <div class="meta">
+            <span>{{ repo.description|default:"No description available." }}</span> • 
+            <span>Created on {{ repo.created_at|date:"M d, Y" }}</span>
+        </div>
+
+        <h3>Commit History</h3>
+        <div class="timeline">
+            {% for commit in commits %}
+                <div class="commit-node">
+                    <div class="commit-box">
+                        <span class="commit-hash">{{ commit.commit_hash|slice:":7" }}</span>
+                        <div class="commit-message">{{ commit.message }}</div>
+                        
+                        {% if commit.files_changed %}
+                            <div class="files-box">
+                                <strong>Modified files:</strong> <code>{{ commit.files_changed }}</code>
+                            </div>
+                        {% endif %}
+                        
+                        <div class="commit-meta">
+                            Authored by <strong>{{ commit.author }}</strong> on {{ commit.timestamp|date:"F j, Y, g:i a" }}
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p class="empty-state">No commits have been pushed to this repository yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
