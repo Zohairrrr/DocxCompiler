@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import docx_compiler_view
+from . import views
 
 urlpatterns = [
-    path('', docx_compiler_view, name='compiler_home'),
+    path('', views.docx_compiler_view, name='compiler_home'),
+    path('api/compile/', views.compile_api_view, name='compiler_api'),
 ]
