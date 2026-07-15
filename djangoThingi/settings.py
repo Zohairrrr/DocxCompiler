@@ -27,7 +27,9 @@ DEBUG = True
 
 import os
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
-
+CSRF_TRUSTED_ORIGINS = [
+    'https://docxcompiler.onrender.com',
+]
 
 # Application definition
 
