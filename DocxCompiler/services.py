@@ -5,7 +5,7 @@ from django.conf import settings
 
 class AIWordEngine:
     @staticmethod
-    def gen_math_doc(user_prompt,output_filename="math.docx"):
+    def generate_math_document(user_prompt,output_filename="math.docx"):
         api_key = os.environ.get("GROQ_API_KEY")
         if not api_key:
             raise ValueError("API key not found")
@@ -72,7 +72,7 @@ class AIWordEngine:
                     "content": user_prompt
                 }
             ],
-            temprature= 0.3
+            temperature= 0.3
         )
         raw_ai_text = response.choices[0].message.content
         media_root = os.path.join(settings.BASE_DIR, 'media')
