@@ -72,7 +72,7 @@ class AIWordEngine:
                     "content": user_prompt
                 }
             ],
-            temperature= 0.3
+            temperature= 0.3,
             max_tokens=8000
         )
         raw_ai_text = response.choices[0].message.content
