@@ -1,11 +1,14 @@
 import os
 import pypandoc
+import uuid
 from groq import Groq
 from django.conf import settings
 
 class AIWordEngine:
     @staticmethod
-    def generate_math_document(user_prompt,output_filename="math.docx"):
+    def generate_math_document(user_prompt, output_filename=None):
+        if not output_filename:
+            output_filename = f"math_{uuid.uuid4().hex[:12]}.docx"
         api_key = os.environ.get("GROQ_API_KEY")
         if not api_key:
             raise ValueError("API key not found")

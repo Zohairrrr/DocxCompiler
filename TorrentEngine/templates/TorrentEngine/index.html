@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Z8 BitTorrent Engine</title>
+    <style>
+        body { font-family: monospace; background: #0f1419; color: #e6b450; padding: 40px; }
+        .container { max-width: 800px; margin: 0 auto; border: 1px solid #e6b450; padding: 20px; box-shadow: 0 0 15px rgba(230,180,80,0.2); }
+        h1, h2 { border-bottom: 1px solid #e6b450; padding-bottom: 10px; text-transform: uppercase; }
+        input[type="file"] { background: #14191f; border: 1px solid #e6b450; color: #e6b450; padding: 10px; width: 100%; margin-bottom: 20px; box-sizing: border-box; }
+        button { background: #e6b450; color: #0f1419; border: none; padding: 12px 20px; font-weight: bold; cursor: pointer; text-transform: uppercase; width: 100%; margin-top: 15px; }
+        button:hover { background: #ffcc66; }
+        .meta-box, .error-box { background: #14191f; padding: 15px; border-left: 4px solid #e6b450; margin-top: 20px; }
+        .error-box { border-left-color: #ff3333; color: #ff3333; }
+        ul { list-style: square; padding-left: 20px; }
+        li { margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Z8 BitTorrent Engine</h1>
+        <p>Upload a .torrent file to parse and analyze its binary payload structure.</p>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="torrentFile" required>
+            <button type="submit">Parse Torrent Metadata</button>
+        </form>
+
+        {% if error %}
+        <div class="error-box">
+            <h2>Error Parsing File</h2>
+            <p>{{ error }}</p>
+        </div>
+        {% endif %}
+
+        {% if metadata %}
+        <div class="meta-box">
+            <h2>Torrent Metadata Analysis</h2>
+            <p><strong>Name:</strong> {{ metadata.name }}</p>
+            <p><strong>Announce URL:</strong> {{ metadata.announce_url }}</p>
+            <p><strong>Info Hash (Hex):</strong> {{ metadata.info_hash_hex }}</p>
+            <p><strong>Total Size:</strong> {{ metadata.total_size }} bytes</p>
+            <p><strong>Piece Length:</strong> {{ metadata.piece_length }} bytes</p>
+            <p><strong>Pieces Count:</strong> {{ metadata.piece_hashes|length }}</p>
+
+            <h3>Files Layout</h3>
+            <ul>
+                {% for file in metadata.files %}
+                <li>{{ file.path }} ({{ file.length }} bytes)</li>
+                {% endfor %}
+            </ul>
+
+            <form action="{% url 'start_download' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" style="background: #33cc66; color: #0f1419;">Initialize Download Swarm</button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

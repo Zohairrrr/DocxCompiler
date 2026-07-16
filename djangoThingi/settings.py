@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "polls.apps.PollsConfig",
     "GitFetch.apps.GitfetchConfig",
     'DocxCompiler.apps.DocxcompilerConfig',
+    'TorrentEngine.apps.TorrentengineConfig',
 ]
 
 MIDDLEWARE = [

@@ -1,7 +1,8 @@
 import os
 import json
+import uuid
 from django.shortcuts import render
-from django.http import FileResponse, HttpResponse
+from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from .services import AIWordEngine
 
@@ -14,12 +15,22 @@ def docx_compiler_view(request):
         
         try:
             file_path = AIWordEngine.generate_math_document(prompt)
-            response = FileResponse(open(file_path, 'rb'), as_attachment=True, filename="math.docx")
+            filename = os.path.basename(file_path)
+            with open(file_path, 'rb') as docx_file:
+                response = HttpResponse(
+                    docx_file.read(),
+                    content_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                )
+                response['Content-Disposition'] = f'attachment; filename="{filename}"'
+            
+            if os.path.exists(file_path):
+                os.remove(file_path)
             return response
         except Exception as e:
             return HttpResponse(f"Compilation Engine Failure: {str(e)}", status=500)
             
     return render(request, "docx_compiler/index.html")
+
 @csrf_exempt  
 def compile_api_view(request):
     if request.method != "POST":
@@ -40,13 +51,17 @@ def compile_api_view(request):
         
     try:
         file_path = AIWordEngine.generate_math_document(prompt)
+        filename = os.path.basename(file_path)
         with open(file_path, 'rb') as docx_file:
             response = HttpResponse(
                 docx_file.read(), 
                 content_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
             )
-            response['Content-Disposition'] = 'attachment; filename="AI_Compiled_Math.docx"'
-            return response
+            response['Content-Disposition'] = f'attachment; filename="{filename}"'
+            
+        if os.path.exists(file_path):
+            os.remove(file_path)
+        return response
             
     except Exception as e:
         return HttpResponse(f"Internal Compilation Error: {str(e)}", status=500)
